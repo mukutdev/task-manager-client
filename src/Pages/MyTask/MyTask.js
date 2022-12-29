@@ -27,7 +27,7 @@ const MyTask = () => {
             <div className='mt-10'>
                     <h2 className='text-2xl text-center font-semibold'>All Task {tasks.length}</h2>
             <div className='w-11/12 mx-auto mt-14'>
-                <div className='grid grid-cols-3 justify-between gap-10 mb-40'>
+                <div className='grid md:grid-cols-3 justify-between gap-10 mb-40'>
                     {
                         tasks.map(task => <TaskCard key={task._id} task={task} refetch={refetch}/>)
                     }
