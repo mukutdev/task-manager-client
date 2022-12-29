@@ -7,16 +7,16 @@ import TaskCard from '../../Shared/TaskCard/TaskCard';
 const MyTask = () => {
 
     const {user} = useContext(AuthProvider)
+    const incomplete = "incomplete"
     const { data: tasks = [], isLoading, refetch,
       } = useQuery({
         queryKey: ["tasks"],
         queryFn: async () => {
-          const res = await fetch(`${process.env.REACT_APP_url}/allTask?email=${user?.email}`);
+          const res = await fetch(`${process.env.REACT_APP_url}/allTask?email=${user?.email}&status=${incomplete}`);
           const data = res.json();
           return data;
         },
       });
-
       if(isLoading){
         return <Loader/>
       }

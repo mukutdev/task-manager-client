@@ -17,31 +17,31 @@ const Header = () => {
       <Navbar.Collapse>
         <ul className="flex flex-col mt-4 -mx-4 pt-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
           <li>
-            <NavLink to={"/"} className="block px-4 py-1 md:p-2 lg:px-4">
+            <NavLink to={"/"} className="block px-4 py-1 md:p-2 lg:px-4 text-lg">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/addtask"} className="block px-4 py-1 md:p-2 lg:px-4">
+            <NavLink to={"/addtask"} className="block px-4 py-1 md:p-2 lg:px-4 text-lg">
               Add Task
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/mytask"} className="block px-4 py-1 md:p-2 lg:px-4">
+            <NavLink to={"/mytask"} className="block px-4 py-1 md:p-2 lg:px-4 text-lg">
               My Task
             </NavLink>
           </li>
           <li>
             <NavLink
               to={"/completed"}
-              className="block px-4 py-1 md:p-2 lg:px-4"
+              className="block px-4 py-1 md:p-2 lg:px-4 text-lg"
             >
               Completed Task
             </NavLink>
           </li>
           {user?.uid ? (
             <>
-              <span className="font-medium">Hello , {user?.displayName}</span>
+              <span className="font-medium text-lg">Hello , {user?.displayName}</span>
               <button
                 onClick={handleUserLogout}
                 className="flex items-center gap-2 md:ml-3 bg-indigo-600 text-white p-2 rounded-md text-base"

@@ -34,7 +34,8 @@ const AddTask = () => {
              taskName: data.taskName,
              taskDetails: data.taskDetails,
              image: img.data.url,
-             email:user?.email
+             email:user?.email,
+             status :'incomplete'
            };
           //  setAddLoading(true)
            fetch(`${process.env.REACT_APP_url}/addTask` , {
