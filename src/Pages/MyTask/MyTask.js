@@ -19,7 +19,6 @@ const MyTask = () => {
         return <Loader/>
       }
 
-
     return (
         <section className='container mx-auto'>
             <div className='mt-10'>

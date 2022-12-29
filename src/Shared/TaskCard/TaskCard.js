@@ -19,7 +19,7 @@ const TaskCard = ({task}) => {
                     <div className='flex justify-between my-5 items-center'>
                         <img src={image} className="h-12 w-12 rounded-full" alt="" />
                         <div>
-                        <span className='bg-orange-500 text-white px-4 py-1 rounded-sm'>Incomplete</span>
+                        <span className='bg-indigo-600 text-white px-4 py-1 rounded-sm'>Incomplete</span>
                         </div>
                     </div>
                 </div>
