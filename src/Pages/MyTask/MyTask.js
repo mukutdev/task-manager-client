@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthProvider } from '../../Context/AuthContext';
 import Loader from '../../Shared/Loader/Loader';
 import TaskCard from '../../Shared/TaskCard/TaskCard';
 
 const MyTask = () => {
 
+    const {user} = useContext(AuthProvider)
     const { data: tasks = [], isLoading, refetch,
       } = useQuery({
         queryKey: ["tasks"],
         queryFn: async () => {
-          const res = await fetch('task.json');
+          const res = await fetch(`${process.env.REACT_APP_url}/allTask?email=${user?.email}`);
           const data = res.json();
           return data;
         },
@@ -19,6 +21,7 @@ const MyTask = () => {
         return <Loader/>
       }
 
+
     return (
         <section className='container mx-auto'>
             <div className='mt-10'>
@@ -26,7 +29,7 @@ const MyTask = () => {
             <div className='w-11/12 mx-auto mt-14'>
                 <div className='grid grid-cols-3 justify-between gap-10 mb-40'>
                     {
-                        tasks.map(task => <TaskCard key={task.id} task={task}/>)
+                        tasks.map(task => <TaskCard key={task._id} task={task} refetch={refetch}/>)
                     }
                 </div>
             </div>

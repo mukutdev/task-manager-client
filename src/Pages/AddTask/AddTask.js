@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AuthProvider } from "../../Context/AuthContext";
+import SmallSpinner from "../../Shared/SmallSpinner/SmallSpinner";
 
 const AddTask = () => {
+  const {user , loading} = useContext(AuthProvider)
+  const [addLoading , setAddLoading] = useState(true)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -24,10 +31,27 @@ const AddTask = () => {
       .then(img => {
         if (img.success) {
           const task = {
-             tsName: data.taskName,
-             tsDetails: data.taskDetails,
+             taskName: data.taskName,
+             taskDetails: data.taskDetails,
              image: img.data.url,
+             email:user?.email
            };
+          //  setAddLoading(true)
+           fetch(`${process.env.REACT_APP_url}/addTask` , {
+            method : 'POST',
+            headers :{
+                'content-type' : 'application/json',  
+            },
+            body : JSON.stringify(task)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            toast.success(`${task.taskName} is now added successfully`)
+            // setAddLoading(false)
+            navigate('/mytask')
+        })
+
            console.log(task);
         }
       });
@@ -74,12 +98,15 @@ const AddTask = () => {
                 <span className="text-red-500">Select a image</span>
               )}
               <div className="mt-4">
-                <input
-                  type="submit"
-                  name="image"
-                  value="Add Task"
-                  className="w-full cursor-pointer bg-indigo-600 text-white py-2 font-semibold"
-                />
+               {
+                loading ? <SmallSpinner/> :  <input
+                type="submit"
+                name="image"
+                value="Add Task"
+                className="w-full cursor-pointer bg-indigo-600 text-white py-2 font-semibold"
+              />
+               }
+               
               </div>
             </div>
           </form>

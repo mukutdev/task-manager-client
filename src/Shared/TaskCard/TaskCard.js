@@ -1,9 +1,27 @@
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
-const TaskCard = ({task}) => {
+const TaskCard = ({task , refetch}) => {
+    
+    const deleteCar = id => {
+        console.log(id);
+        fetch(`${process.env.REACT_APP_url}/allTask/${id}`,{
+            method : "DELETE",
+          })
+          .then(res => res.json())
+          .then(data =>{
+            if(data.deletedCount) {
+              console.log(data);
+              toast.success("Task Deleted successfully");
+              refetch();
+            }
+          })
+          console.log(id);
+        
+      }
 
-    const {taskName , taskDetails , image, id} = task
+    const {taskName , taskDetails , image, _id} = task
     return (
         <div className='mx-4'>
             <div className='bg-white rounded p-4'>
@@ -11,7 +29,7 @@ const TaskCard = ({task}) => {
                      <h2 className='text-xl font-medium'>{taskName}</h2>
                      <div className='flex gap-1'>
                         <PencilSquareIcon className="h-5 w-5 text-slate-600 cursor-pointer"/>
-                        <TrashIcon className="h-5 w-5 text-slate-600 cursor-pointer"/>
+                        <TrashIcon onClick={()=>deleteCar(_id)} className="h-5 w-5 text-slate-600 cursor-pointer"/>
                      </div>
                 </div>
                 <div className='my-3'>
