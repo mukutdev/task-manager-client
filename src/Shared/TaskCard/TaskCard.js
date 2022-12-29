@@ -7,7 +7,7 @@ const TaskCard = ({ task, refetch }) => {
   //delete car
   const deleteCar = id => {
     console.log(id);
-    fetch(`${process.env.REACT_APP_url}/allTask/${id}`, {
+    fetch(`https://task-manager-server-two.vercel.app/allTask/${id}`, {
       method: "DELETE",
     })
       .then(res => res.json())
@@ -22,7 +22,7 @@ const TaskCard = ({ task, refetch }) => {
   };
 
   const markComplete = id => {
-    fetch(`${process.env.REACT_APP_url}/allTask/update/${id}`, {
+    fetch(`https://task-manager-server-two.vercel.app/allTask/update/${id}`, {
       method: "PUT",
     })
       .then(res => res.json())

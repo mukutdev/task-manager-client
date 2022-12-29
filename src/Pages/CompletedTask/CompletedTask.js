@@ -11,7 +11,7 @@ const CompletedTask = () => {
       } = useQuery({
         queryKey: ["tasks"],
         queryFn: async () => {
-          const res = await fetch(`${process.env.REACT_APP_url}/allTask?email=${user?.email}&status=${completed}`);
+          const res = await fetch(`https://task-manager-server-two.vercel.app/allTask?email=${user?.email}&status=${completed}`);
           const data = res.json();
           return data;
         },
