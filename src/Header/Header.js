@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -22,19 +22,22 @@ const Header = () => {
 
       <ul className="flex flex-col mt-4 -mx-4 pt-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
         <li>
-          <Link className="block px-4 py-1 md:p-2 lg:px-4" >Home</Link>
+          <NavLink to={'/'} className="block px-4 py-1 md:p-2 lg:px-4" >Home</NavLink>
         </li>
         <li>
-          <Link className="block px-4 py-1 md:p-2 lg:px-4">Add Task</Link>
+          <NavLink to={'/addtask'} className="block px-4 py-1 md:p-2 lg:px-4">Add Task</NavLink>
         </li>
         <li>
-          <Link className="block px-4 py-1 md:p-2 lg:px-4" >My Task</Link>
+          <NavLink to={'/mytask'} className="block px-4 py-1 md:p-2 lg:px-4" >My Task</NavLink>
         </li>
         <li>
-          <Link className="block px-4 py-1 md:p-2 lg:px-4" >Completed Task</Link>
+          <NavLink to={'/completed'} className="block px-4 py-1 md:p-2 lg:px-4" >Completed Task</NavLink>
         </li>
         <li>
-          <Link className="block px-4 py-1 md:p-2 lg:px-4" >My Account</Link>
+          <NavLink to={'/login'} className="block px-4 py-1 md:p-2 lg:px-4" >Login</NavLink>
+        </li>
+        <li>
+          <NavLink to={'/register'} className="block px-4 py-1 md:p-2 lg:px-4" >Register</NavLink>
         </li>
       </ul>
     </div>
