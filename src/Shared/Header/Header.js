@@ -1,18 +1,44 @@
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import { Navbar } from "flowbite-react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthProvider } from "../../Context/AuthContext";
+import { MdOutlineDarkMode, MdOutlineWbSunny } from "react-icons/md";
 
 const Header = () => {
   const { user, handleUserLogout } = useContext(AuthProvider);
+  
+  const [theme, setTheme] = useState(null);
 
-  console.log(user);
+  // dark mood functionality
+
+  useEffect(()=>{
+
+    if(window.matchMedia('(prefers-color-scheme : dark)').matches){
+      setTheme('dark')
+    }else{
+      setTheme('light')
+    }
+
+  } , [])
+
+  useEffect(()=>{
+    if(theme === 'dark'){
+      document.documentElement.classList.add('dark')
+    }else{
+      document.documentElement.classList.remove('dark')
+    }
+  } ,[theme])
+
+  const handleThemeSwitch = () =>{
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
+
 
   return (
-      <div className="bg-white">
+      <div className="bg-white dark:bg-slate-800 dark:text-white">
         <Navbar fluid={true} rounded={true} className="container mx-auto">
-      <Link to={"/"} className="font-medium text-xl">Task Manager</Link>
+      <Link to={"/"} className="font-medium text-xl dark:text-white">Task Manager</Link>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <ul className="flex flex-col mt-4 -mx-4 pt-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
@@ -38,6 +64,12 @@ const Header = () => {
             >
               Completed Task
             </NavLink>
+          </li>
+          <li>
+          <button onClick={handleThemeSwitch} className="flex dark:text-white text-2xl mx-6">
+             {theme === 'dark' ?  <MdOutlineDarkMode /> :  <MdOutlineWbSunny />}
+          </button>
+ 
           </li>
           {user?.uid ? (
             <>

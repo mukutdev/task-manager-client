@@ -23,7 +23,7 @@ const MyTask = () => {
 
 
     return (
-        <section className='container mx-auto h-screen'>
+        <section className='container mx-auto h-screen dark:text-white'>
             <div className='mt-10'>
                     <h2 className='text-2xl text-center font-semibold'>All Task {tasks.length}</h2>
             <div className='w-11/12 mx-auto mt-14'>

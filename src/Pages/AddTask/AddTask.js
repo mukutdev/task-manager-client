@@ -62,7 +62,7 @@ const AddTask = () => {
   return (
     <section className="container mx-auto h-screen">
       <div className="w-1/3 mx-auto mt-36">
-        <div className="bg-white p-4 rounded">
+        <div className="bg-white p-4 rounded dark:text-white dark:bg-slate-800">
           <h2 className="text-xl text-center font-semibold mt-4">
             Add A New Task
           </h2>

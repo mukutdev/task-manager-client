@@ -61,8 +61,8 @@ const TaskCard = ({ task, refetch }) => {
 
   const { taskName, taskDetails, image, _id, status } = task;
   return (
-    <div className="mx-4">
-      <div className="bg-white rounded p-4">
+    <div className="mx-4 dark:text-white ">
+      <div className="bg-white rounded p-4 dark:text-white dark:bg-slate-800">
         <div className="flex justify-between">
           <h2 className="text-xl font-medium">{taskName}</h2>
           <div className="flex gap-1">

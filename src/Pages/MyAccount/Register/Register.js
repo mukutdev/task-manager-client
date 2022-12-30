@@ -31,7 +31,7 @@ const Register = () => {
     return (
         <section className="h-screen">
       <div className="mt-40 flex flex-col justify-center items-center ">
-        <div className="bg-white md:w-[400px] mt-10 p-6 md:mx-0 mx-4">
+        <div className="bg-white md:w-[400px] dark:text-white dark:bg-slate-800 mt-10 p-6 md:mx-0 mx-4">
           <h2 className="text-center text-2xl font-bold">Register</h2>
           <form onSubmit={handleSubmit(handleUserSubmit)}>
             <input

@@ -5,11 +5,11 @@ const Footer = () => {
     const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-white">
+    <footer className="bg-white  dark:bg-slate-800">
       <div className="container mx-auto text-slate-700 py-4">
         <div className="container flex justify-between items-center">
-          <p className="text-sm font-medium">Copyright &copy; Mukut {year}</p>
-          <div className="flex justify-between w-24">
+          <p className="text-sm font-medium dark:text-white">Copyright &copy; Mukut {year}</p>
+          <div className="flex justify-between w-24 dark:text-white">
             <a href="https://www.facebook.com/mukutchakrabortii/" className="text-xl hover:text-gray-400">
               <BsFacebook />
             </a>
