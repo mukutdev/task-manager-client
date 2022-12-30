@@ -2,7 +2,7 @@ import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import { Navbar } from "flowbite-react";
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AuthProvider } from "../Context/AuthContext";
+import { AuthProvider } from "../../Context/AuthContext";
 
 const Header = () => {
   const { user, handleUserLogout } = useContext(AuthProvider);
@@ -52,7 +52,7 @@ const Header = () => {
             </>
           ) : (
             <li>
-              <NavLink to={"/login"} className="block px-4 py-1 md:p-2 lg:px-4">
+              <NavLink to={"/login"} className="block text-lg px-4 py-1 md:p-2 lg:px-4 bg-indigo-600 text-white rounded-md">
                 Login
               </NavLink>
             </li>

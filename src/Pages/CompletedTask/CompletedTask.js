@@ -22,7 +22,7 @@ const CompletedTask = () => {
 
 
     return (
-        <section className='container mx-auto'>
+        <section className='container mx-auto h-screen'>
             <div className='mt-10'>
                     <h2 className='text-2xl text-center font-semibold'>Completed Task {tasks.length}</h2>
             <div className='w-11/12 mx-auto mt-14'>

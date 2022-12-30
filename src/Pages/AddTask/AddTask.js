@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import SmallSpinner from "../../Shared/SmallSpinner/SmallSpinner";
 
 const AddTask = () => {
   const {user , loading} = useContext(AuthProvider)
-  const [addLoading , setAddLoading] = useState(true)
+  // const [addLoading , setAddLoading] = useState(true)
   const navigate = useNavigate()
   const {
     register,
@@ -60,7 +60,7 @@ const AddTask = () => {
     
   };
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto h-screen">
       <div className="w-1/3 mx-auto mt-36">
         <div className="bg-white p-4 rounded">
           <h2 className="text-xl text-center font-semibold mt-4">

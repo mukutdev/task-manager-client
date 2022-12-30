@@ -1,8 +1,8 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { Button, Tooltip } from "flowbite-react";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import EditModal from "../EditModal/EditModal";
+import './TaskCard.css'
 
 const TaskCard = ({ task, refetch }) => {
 
@@ -24,10 +24,10 @@ const TaskCard = ({ task, refetch }) => {
     console.log(id);
   };
 
-  // update task
+  // mark complete task
   const markComplete = id => {
     console.log(id);
-    fetch(`https://task-manager-server-two.vercel.app/allTask/update/${id}`, {
+    fetch(`http://localhost:5000/allTask/completed/${id}`, {
       method: "PUT",
     })
       .then(res => res.json())
@@ -41,6 +41,24 @@ const TaskCard = ({ task, refetch }) => {
       .catch(err => console.log(err));
   };
 
+  // mark incomplete
+
+  const markInComplete = id => {
+    console.log(id);
+    fetch(`http://localhost:5000/allTask/incomplete/${id}`, {
+      method: "PUT",
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.modifiedCount > 0) {
+          console.log(data);
+          toast.success(`${taskName} Mark as incomplete task`);
+          refetch();
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   const { taskName, taskDetails, image, _id, status } = task;
   return (
     <div className="mx-4">
@@ -48,11 +66,11 @@ const TaskCard = ({ task, refetch }) => {
         <div className="flex justify-between">
           <h2 className="text-xl font-medium">{taskName}</h2>
           <div className="flex gap-1">
-            <PencilSquareIcon onClick={()=> setOpenModal(true)} className="h-5 w-5 text-slate-600 cursor-pointer" />
+            <PencilSquareIcon onClick={()=> setOpenModal(true)} className="h-6 w-6 p-1 text-slate-600 bg-gray-100 cursor-pointer" />
             <EditModal open={openModal} onClose={()=>setOpenModal(false)} task={task} refetch={refetch}/>
             <TrashIcon
               onClick={() => deleteCar(_id)}
-              className="h-5 w-5 text-slate-600 cursor-pointer"
+              className="h-6 w-6 p-1 color-red-cs cursor-pointer bg-red-cs"
             />
           </div>
         </div>
@@ -60,11 +78,16 @@ const TaskCard = ({ task, refetch }) => {
           <p className="text-sm font-medium">{taskDetails}</p>
           <div className="flex justify-between my-5 items-center">
             <img src={image} className="h-12 w-12 rounded-full" alt="" />
-            <div>
-                
+            <div >
                 {
-                status === 'incomplete' ? <button title="Mark as completed" className="bg-orange-500 rounded-md p-2 text-white" onClick={() => markComplete(_id)}>{status}</button>
-                 : <button title="Mark as incomplete" className="bg-green-500 rounded-md p-2 text-white" onClick={() => markComplete(_id)}>{status}</button>
+                status === 'incomplete' ?<>
+                 <button className="incomplete-bg incomplete-color text-sm rounded-sm px-2 p-1 text-white">{status}</button>
+                 <button  className="bg-green-cs color-green-cs ml-2 text-sm rounded-sm px-2 p-1 text-white" onClick={() => markComplete(_id)}>Mark as completed</button>
+                 </>
+                 : <>
+                 <button  className="bg-green-cs color-green-cs rounded-sm p-1 text-white text-sm px-2">{status}</button>
+                 <button  className="incomplete-bg incomplete-color ml-2 rounded-sm p-1 text-white text-sm px-2" onClick={() => markInComplete(_id)}>Mark as Not Completed</button>
+                 </>
               }
             </div>
           </div>
