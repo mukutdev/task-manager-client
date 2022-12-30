@@ -1,16 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
 import SmallSpinner from '../../../Shared/SmallSpinner/SmallSpinner';
 
 const Register = () => {
-    const {handleCreateUser , loading} = useContext(AuthProvider)
+    const {handleCreateUser , loading , user} = useContext(AuthProvider)
     const {register , handleSubmit , formState: { errors }} = useForm()
     const navigate = useNavigate()
-  
     const [errorMessage , setErrorMessage] = useState('')
+    const location = useLocation()
+    const from = location.state?.from.pathname || '/'
 
     const handleUserSubmit = data =>{
         // console.log(data);
@@ -27,6 +28,9 @@ const Register = () => {
         })
     }
 
+    if(user?.uid){
+      return navigate(from , {replace : true})
+    }
 
 
     return (

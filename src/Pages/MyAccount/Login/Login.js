@@ -7,12 +7,12 @@ import SmallSpinner from '../../../Shared/SmallSpinner/SmallSpinner';
 
 const Login = () => {
     const {register , handleSubmit , formState: { errors }} = useForm()
-    const {handleSignInWithEmailAndPassword , handleGoogleLogin , loading} = useContext(AuthProvider)
+    const {handleSignInWithEmailAndPassword , handleGoogleLogin , loading , user} = useContext(AuthProvider)
     const location = useLocation()
     const navigate = useNavigate()
     const [errorMessage , setErrorMessage] = useState('')
 
-    const from = location.state?.from?.pathname || '/'
+    const from = location.state?.from.pathname || '/'
 
     const handleUserSubmit = data =>{
         // console.log(data);
@@ -21,7 +21,7 @@ const Login = () => {
         handleSignInWithEmailAndPassword(data.email, data.password)
         .then(result =>{
           const user = result.user
-          toast.success('User logged in successfully')
+          toast.success('logged in successfully')
           navigate(from , {replace : true})
           // console.log(user);
         })
@@ -35,12 +35,16 @@ const Login = () => {
     const handleLoginUsingGoogle = ()=>{
         handleGoogleLogin()
         .then(result =>{
-          toast.success('User logged in successfully')
-          navigate(from , {replace : true})
           const user = result.user
+          toast.success('logged in successfully')
+          navigate(from , {replace : true})
           // console.log(user);
         })
         .catch(err => console.log(err))
+    }
+
+    if(user?.uid){
+      return navigate(from , {replace : true})
     }
 
     return (

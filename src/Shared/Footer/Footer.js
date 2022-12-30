@@ -5,7 +5,7 @@ const Footer = () => {
     const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-white  dark:bg-slate-800">
+    <footer className="bg-white  dark:bg-slate-800 ">
       <div className="container mx-auto text-slate-700 py-4">
         <div className="mx-6 md:mx-0 flex justify-between items-center">
           <p className="text-sm font-medium dark:text-white">Copyright &copy; Mukut {year}</p>
