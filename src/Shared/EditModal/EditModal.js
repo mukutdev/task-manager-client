@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AuthProvider } from '../../Context/AuthContext';
@@ -8,7 +8,8 @@ import './EditModal.css'
 
 const EditModal = ({open , onClose , task , refetch}) => {
    
-  const {user , loading} = useContext(AuthProvider)
+  const {user } = useContext(AuthProvider)
+  const [editLoading , setEditLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -18,7 +19,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
   if(!open) return null;
 
     const updateTask = data => {
-  
+      setEditLoading(true)
           const newtaskData = {
             taskName: data.taskName,
             taskDetails: data.taskDetails,
@@ -79,7 +80,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
              
               <div className="mt-4">
                {
-                loading ? <SmallSpinner/> :  <input
+                editLoading ? <SmallSpinner/> :  <input
                 type="submit"
                 name="image"
                 value="Update Task"
