@@ -38,7 +38,7 @@ const AddTask = () => {
              status :'incomplete'
            };
           //  setAddLoading(true)
-           fetch(`${process.env.REACT_APP_url}/addTask` , {
+           fetch(`https://task-manager-server-two.vercel.app/addTask` , {
             method : 'POST',
             headers :{
                 'content-type' : 'application/json',  

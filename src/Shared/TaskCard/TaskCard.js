@@ -1,9 +1,12 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Button, Tooltip } from "flowbite-react";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import EditModal from "../EditModal/EditModal";
 
 const TaskCard = ({ task, refetch }) => {
+
+  const [openModal , setOpenModal] = useState(false)
   //delete car
   const deleteCar = id => {
     console.log(id);
@@ -21,7 +24,9 @@ const TaskCard = ({ task, refetch }) => {
     console.log(id);
   };
 
+  // update task
   const markComplete = id => {
+    console.log(id);
     fetch(`https://task-manager-server-two.vercel.app/allTask/update/${id}`, {
       method: "PUT",
     })
@@ -43,7 +48,8 @@ const TaskCard = ({ task, refetch }) => {
         <div className="flex justify-between">
           <h2 className="text-xl font-medium">{taskName}</h2>
           <div className="flex gap-1">
-            <PencilSquareIcon className="h-5 w-5 text-slate-600 cursor-pointer" />
+            <PencilSquareIcon onClick={()=> setOpenModal(true)} className="h-5 w-5 text-slate-600 cursor-pointer" />
+            <EditModal open={openModal} onClose={()=>setOpenModal(false)} task={task} refetch={refetch}/>
             <TrashIcon
               onClick={() => deleteCar(_id)}
               className="h-5 w-5 text-slate-600 cursor-pointer"
@@ -64,6 +70,7 @@ const TaskCard = ({ task, refetch }) => {
           </div>
         </div>
       </div>
+            
     </div>
   );
 };

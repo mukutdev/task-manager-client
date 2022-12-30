@@ -10,7 +10,7 @@ const MyTask = () => {
     const incomplete = "incomplete"
     const { data: tasks = [], isLoading, refetch,
       } = useQuery({
-        queryKey: ["tasks"],
+        queryKey: ["tasks" , {email : user?.email}],
         queryFn: async () => {
           const res = await fetch(`https://task-manager-server-two.vercel.app/allTask?email=${user?.email}&status=${incomplete}`);
           const data = res.json();
