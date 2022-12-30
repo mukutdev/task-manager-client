@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
+import SmallSpinner from '../../../Shared/SmallSpinner/SmallSpinner';
 
 const Register = () => {
-    const {handleCreateUser} = useContext(AuthProvider)
+    const {handleCreateUser , loading} = useContext(AuthProvider)
     const {register , handleSubmit , formState: { errors }} = useForm()
     const navigate = useNavigate()
   
@@ -30,7 +31,7 @@ const Register = () => {
 
     return (
         <section className="h-screen">
-      <div className="mt-40 flex flex-col justify-center items-center ">
+      <div className="md:mt-40 mt-11 flex flex-col justify-center items-center ">
         <div className="bg-white md:w-[400px] dark:text-white dark:bg-slate-800 mt-10 p-6 md:mx-0 mx-4">
           <h2 className="text-center text-2xl font-bold">Register</h2>
           <form onSubmit={handleSubmit(handleUserSubmit)}>
@@ -55,8 +56,10 @@ const Register = () => {
               className="border-0 w-full outline-none bg-gray-50 px-3 py-3 mt-3 text-slate-900 placeholder-gray-500"
             />
             {errors.password && <span className="text-red-500">Please enter a strong password</span>}
-             
-             <input type="submit" value="Create Your Account"  className="w-full bg-indigo-600 text-white hover:bg-orange-500 cursor-pointer py-3 mt-4 font-medium text-lg"/>
+             {
+              loading? <SmallSpinner/> : <input type="submit" value="Create Your Account"  className="w-full bg-indigo-600 text-white hover:bg-orange-500 cursor-pointer py-3 mt-4 font-medium text-lg"/>
+             }
+            
           </form>
            <p className="text-red-500 font-medium text-lg my-3">{errorMessage}</p>
           <div className="mt-4">

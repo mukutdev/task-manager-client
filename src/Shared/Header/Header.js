@@ -38,7 +38,12 @@ const Header = () => {
   return (
       <div className="bg-white dark:bg-slate-800 dark:text-white">
         <Navbar fluid={true} rounded={true} className="container mx-auto">
-      <Link to={"/"} className="font-medium text-xl dark:text-white">Task Manager</Link>
+      <Link to={"/"} className="font-medium text-xl dark:text-white">TaskMaster</Link>
+      <div className="md:hidden ml-auto">
+      <button onClick={handleThemeSwitch} className="flex dark:text-white text-2xl mx-6">
+             {theme === 'dark' ?  <MdOutlineDarkMode /> :  <MdOutlineWbSunny />}
+          </button>
+      </div>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <ul className="flex flex-col mt-4 -mx-4 pt-4 border-t md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0">
@@ -65,7 +70,7 @@ const Header = () => {
               Completed Task
             </NavLink>
           </li>
-          <li>
+          <li className="hidden md:block">
           <button onClick={handleThemeSwitch} className="flex dark:text-white text-2xl mx-6">
              {theme === 'dark' ?  <MdOutlineDarkMode /> :  <MdOutlineWbSunny />}
           </button>
@@ -73,10 +78,10 @@ const Header = () => {
           </li>
           {user?.uid ? (
             <>
-              <span className="font-medium text-lg">Hello , {user?.displayName}</span>
+              <span className="font-medium text-lg px-4">Hello , { !user?.displayName ? "Dear" : user.displayName}</span>
               <button
                 onClick={handleUserLogout}
-                className="flex items-center gap-2 md:ml-3 bg-indigo-600 text-white p-2 rounded-md text-base"
+                className="md:mt-0 my-2 flex items-center gap-2 md:ml-3 bg-indigo-600 text-white p-2 rounded-md text-base mx-4"
               >
                 <ArrowLeftOnRectangleIcon className="h-5 w-5" />
                 Sign Out

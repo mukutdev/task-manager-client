@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
+import SmallSpinner from '../../../Shared/SmallSpinner/SmallSpinner';
 
 const Login = () => {
     const {register , handleSubmit , formState: { errors }} = useForm()
-    const {handleSignInWithEmailAndPassword , handleGoogleLogin} = useContext(AuthProvider)
+    const {handleSignInWithEmailAndPassword , handleGoogleLogin , loading} = useContext(AuthProvider)
     const location = useLocation()
     const navigate = useNavigate()
     const [errorMessage , setErrorMessage] = useState('')
@@ -44,7 +45,7 @@ const Login = () => {
 
     return (
         <section className="h-screen">
-        <div className="mt-40 flex flex-col justify-center items-center ">
+        <div className="md:mt-40 mt-11 flex flex-col justify-center items-center ">
           <div className="bg-white dark:text-white dark:bg-slate-800 md:w-[400px] mt-10 p-6 md:mx-0 mx-4">
             <h2 className="text-center text-2xl font-bold">Login</h2>
             <form onSubmit={handleSubmit(handleUserSubmit)}>
@@ -63,13 +64,17 @@ const Login = () => {
               />
               {errors.password && <span className="text-red-500">Wrong password</span>}
                
-               <input type="submit" value="Login"  className="w-full bg-indigo-600 text-white hover:bg-orange-500 cursor-pointer py-3 mt-4 font-medium text-lg"/>
+               {
+                loading ? <SmallSpinner/> : <input type="submit" value="Login"  className="w-full bg-indigo-600 text-white hover:bg-orange-500 cursor-pointer py-3 mt-4 font-medium text-lg"/>
+                
+               }
             </form>
              <p className="text-red-500 font-medium text-lg my-3">{errorMessage}</p>
              <div className="mt-4">
              <p className="font-medium text-center mb-3">New User ? <Link to={'/register'} className="underline text-lg font-semibold"> Create a account!</Link></p>
              
-             <button onClick={handleLoginUsingGoogle} className='flex items-center justify-center bg-slate-600 hover:bg-slate-500 w-full py-3 text-white text-lg'> Login using Google</button>
+     <button onClick={handleLoginUsingGoogle} className='flex items-center justify-center bg-slate-600 hover:bg-slate-500 w-full py-3 text-white text-lg'> Login using Google</button>
+             
           </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +6,8 @@ import { AuthProvider } from "../../Context/AuthContext";
 import SmallSpinner from "../../Shared/SmallSpinner/SmallSpinner";
 
 const AddTask = () => {
-  const {user , loading} = useContext(AuthProvider)
-  // const [addLoading , setAddLoading] = useState(true)
+  const {user } = useContext(AuthProvider)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const {
     register,
@@ -18,6 +18,7 @@ const AddTask = () => {
   const imgKey = process.env.REACT_APP_imgBB;
 
   const addNewTask = data => {
+    setLoading(true);
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -49,7 +50,6 @@ const AddTask = () => {
         .then(data =>{
             console.log(data);
             toast.success(`${task.taskName} is now added successfully`)
-            // setAddLoading(false)
             navigate('/mytask')
         })
 
@@ -60,8 +60,8 @@ const AddTask = () => {
     
   };
   return (
-    <section className="container mx-auto h-screen">
-      <div className="w-1/3 mx-auto mt-36">
+    <section className="container mx-auto min-h-screen">
+      <div className="md:w-1/3 mx-4 md:mx-auto md:mt-36 mt-11">
         <div className="bg-white p-4 rounded dark:text-white dark:bg-slate-800">
           <h2 className="text-xl text-center font-semibold mt-4">
             Add A New Task
@@ -72,7 +72,7 @@ const AddTask = () => {
               <input
                 {...register("taskName", { required: true })}
                 type="text"
-                className="w-full text-base bg-gray-50 px-4 py-3 outline-none rounded"
+                className="w-full text-base bg-gray-50 dark:text-slate-800 px-4 py-3 outline-none rounded"
                 placeholder="Enter Task Name"
               />
               {errors.taskName && (
@@ -81,7 +81,7 @@ const AddTask = () => {
               <textarea
                 {...register("taskDetails", { required: true })}
                 id=""
-                className="w-full bg-gray-50 text-base px-4 py-3 outline-none my-3 rounded"
+                className="w-full bg-gray-50 dark:text-slate-800 text-base px-4 py-3 outline-none my-3 rounded"
                 cols="10"
                 rows="5"
                 placeholder="Enter Task Details"
@@ -98,17 +98,21 @@ const AddTask = () => {
               {errors.image && (
                 <span className="text-red-500">Select a image</span>
               )}
-              <div className="mt-4">
-               {
-                loading ? <SmallSpinner/> :  <input
-                type="submit"
-                name="image"
-                value="Add Task"
-                className="w-full cursor-pointer bg-indigo-600 text-white py-2 font-semibold"
-              />
-               }
-               
-              </div>
+
+             <div className="mt-4">
+             {
+             loading ? (
+                <SmallSpinner />
+              ) : (
+                <input
+                  type="submit"
+                  name="image"
+                  value="Add Task"
+                  className="w-full cursor-pointer bg-indigo-600 text-white py-2 font-semibold"
+                />
+              )}
+
+             </div>
             </div>
           </form>
         </div>

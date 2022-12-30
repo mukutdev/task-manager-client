@@ -8,7 +8,7 @@ const TaskCard = ({ task, refetch }) => {
 
   const [openModal , setOpenModal] = useState(false)
   //delete car
-  const deleteCar = id => {
+  const deleteTask = id => {
     console.log(id);
     fetch(`https://task-manager-server-two.vercel.app/allTask/${id}`, {
       method: "DELETE",
@@ -64,12 +64,12 @@ const TaskCard = ({ task, refetch }) => {
     <div className="mx-4 dark:text-white ">
       <div className="bg-white rounded p-4 dark:text-white dark:bg-slate-800">
         <div className="flex justify-between">
-          <h2 className="text-xl font-medium">{taskName}</h2>
+          <h2 className="text-xl font-medium mr-4">{taskName}</h2>
           <div className="flex gap-1">
             <PencilSquareIcon onClick={()=> setOpenModal(true)} className="h-6 w-6 p-1 text-slate-600 bg-gray-100 cursor-pointer" />
             <EditModal open={openModal} onClose={()=>setOpenModal(false)} task={task} refetch={refetch}/>
             <TrashIcon
-              onClick={() => deleteCar(_id)}
+              onClick={() => deleteTask(_id)}
               className="h-6 w-6 p-1 color-red-cs cursor-pointer bg-red-cs"
             />
           </div>
@@ -78,7 +78,7 @@ const TaskCard = ({ task, refetch }) => {
           <p className="text-sm font-medium">{taskDetails}</p>
           <div className="flex justify-between my-5 items-center">
             <img src={image} className="h-12 w-12 rounded-full" alt="" />
-            <div >
+            <div className="md:block flex flex-col gap-2 items-center">
                 {
                 status === 'incomplete' ?<>
                  <button className="incomplete-bg incomplete-color text-sm rounded-sm px-2 p-1 text-white">{status}</button>

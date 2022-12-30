@@ -1,8 +1,7 @@
-import { XCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import React, { useContext, useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import { AuthProvider } from '../../Context/AuthContext';
 import SmallSpinner from '../SmallSpinner/SmallSpinner';
 import './EditModal.css'
@@ -10,8 +9,6 @@ import './EditModal.css'
 const EditModal = ({open , onClose , task , refetch}) => {
    
   const {user , loading} = useContext(AuthProvider)
-  const [addLoading , setAddLoading] = useState(true)
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -20,59 +17,39 @@ const EditModal = ({open , onClose , task , refetch}) => {
 
   if(!open) return null;
 
-  const imgKey = process.env.REACT_APP_imgBB;
     const updateTask = data => {
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append("image", image);
-        const url = `https://api.imgbb.com/1/upload?key=${imgKey}`;
-    
-        fetch(url, {
-          method: "POST",
-          body: formData,
-        })
-          .then(res => res.json())
-          .then(img => {
-            if (img.success) {
-              const newtaskData = {
-                 taskName: data.taskName,
-                 taskDetails: data.taskDetails,
-                 image: img.data.url,
-                 email:user?.email,
-                 status :task.status
-               };
-              //  setAddLoading(true)
-               fetch(`http://localhost:5000/allTask/${task?._id}` , {
-                method : 'PUT',
-                headers :{
-                    'content-type' : 'application/json',  
-                },
-                body : JSON.stringify(newtaskData)
-            })
-            .then(res => res.json())
-            .then(data =>{
-                console.log(data);
-                toast.success(`${task.taskName} is now updated successfully`)
-                refetch()
-                onClose()
-                // setAddLoading(false)
-                // navigate('/mytask')
-            })
-    
-               console.log(task);
-            }
-          });
-    
+  
+          const newtaskData = {
+            taskName: data.taskName,
+            taskDetails: data.taskDetails,
+            email:user?.email,
+            status :task.status
+          };
+          fetch(`http://localhost:5000/allTask/${task?._id}` , {
+           method : 'PUT',
+           headers :{
+               'content-type' : 'application/json',  
+           },
+           body : JSON.stringify(newtaskData)
+       })
+       .then(res => res.json())
+       .then(data =>{
+           console.log(data);
+           toast.success(`${task.taskName} is now updated successfully`)
+           refetch()
+           onClose()
+
+       })
         
       };
 
     return (
-        <div onClick={onClose} className='overlay'>
+        <div onClick={onClose} className='overlay '>
       <div
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className='modalContainer'
+        className='modalContainer dark:bg-slate-800 dark:text-white'
       >
         <button onClick={onClose} className='absolute right-4 top-4'><XMarkIcon className='h-6 w-6 bg-indigo-600 text-white'/></button>
         <div className='p-5'>
@@ -83,7 +60,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
                 {...register("taskName")}
                 type="text"
                 defaultValue={task.taskName}
-                className="w-full text-base bg-gray-50 px-4 py-3 outline-none rounded"
+                className="w-full text-base bg-gray-50 px-4 py-3 outline-none rounded dark:text-slate-800"
               />
               {errors.taskName && (
                 <span className="text-red-500">Please enter Task name</span>
@@ -91,7 +68,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
               <textarea
                 {...register("taskDetails")}
                 id=""
-                className="w-full bg-gray-50 text-base px-4 py-3 outline-none my-3 rounded"
+                className="w-full bg-gray-50 text-base px-4 py-3 outline-none my-3 rounded dark:text-slate-800"
                 cols="10"
                 rows="5"
                 defaultValue={task.taskDetails}
@@ -99,15 +76,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
               {errors.taskDetails && (
                 <span className="text-red-500">Enter task details</span>
               )}
-              <input
-                {...register("image")}
-                type="file"
-                className="file-input w-full mt-5"
-                placeholder="Upload Image"
-              />
-              {errors.image && (
-                <span className="text-red-500">Select a image</span>
-              )}
+             
               <div className="mt-4">
                {
                 loading ? <SmallSpinner/> :  <input
