@@ -9,31 +9,31 @@ const TaskCard = ({ task, refetch }) => {
   const [openModal , setOpenModal] = useState(false)
   //delete car
   const deleteTask = id => {
-    console.log(id);
+    // console.log(id);
     fetch(`https://task-manager-server-two.vercel.app/allTask/${id}`, {
       method: "DELETE",
     })
       .then(res => res.json())
       .then(data => {
         if (data.deletedCount) {
-          console.log(data);
+          // console.log(data);
           toast.success("Task Deleted successfully");
           refetch();
         }
       });
-    console.log(id);
+    // console.log(id);
   };
 
   // mark complete task
   const markComplete = id => {
-    console.log(id);
-    fetch(`http://localhost:5000/allTask/completed/${id}`, {
+    // console.log(id);
+    fetch(`https://task-manager-server-mukutdev.vercel.app/allTask/completed/${id}`, {
       method: "PUT",
     })
       .then(res => res.json())
       .then(data => {
         if (data.modifiedCount > 0) {
-          console.log(data);
+          // console.log(data);
           toast.success(`Congratulations ${taskName} is Completed`);
           refetch();
         }
@@ -44,14 +44,14 @@ const TaskCard = ({ task, refetch }) => {
   // mark incomplete
 
   const markInComplete = id => {
-    console.log(id);
-    fetch(`http://localhost:5000/allTask/incomplete/${id}`, {
+    // console.log(id);
+    fetch(`https://task-manager-server-mukutdev.vercel.app/allTask/incomplete/${id}`, {
       method: "PUT",
     })
       .then(res => res.json())
       .then(data => {
         if (data.modifiedCount > 0) {
-          console.log(data);
+          // console.log(data);
           toast.success(`${taskName} Mark as incomplete task`);
           refetch();
         }

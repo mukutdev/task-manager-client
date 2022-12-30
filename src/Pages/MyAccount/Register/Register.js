@@ -13,14 +13,14 @@ const Register = () => {
     const [errorMessage , setErrorMessage] = useState('')
 
     const handleUserSubmit = data =>{
-        console.log(data);
+        // console.log(data);
         //email password based account creation
         handleCreateUser(data.email , data.password)
         .then(result =>{
           const user = result.user
           toast.success('Your account has been created')
           navigate('/')
-          console.log(user);
+          // console.log(user);
         })
         .catch(err => {
           setErrorMessage(err.message)

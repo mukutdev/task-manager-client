@@ -15,7 +15,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/'
 
     const handleUserSubmit = data =>{
-        console.log(data);
+        // console.log(data);
 
         // email and password based login
         handleSignInWithEmailAndPassword(data.email, data.password)
@@ -23,7 +23,7 @@ const Login = () => {
           const user = result.user
           toast.success('User logged in successfully')
           navigate(from , {replace : true})
-          console.log(user);
+          // console.log(user);
         })
         .catch(err => {
           setErrorMessage(err.message)
@@ -38,7 +38,7 @@ const Login = () => {
           toast.success('User logged in successfully')
           navigate(from , {replace : true})
           const user = result.user
-          console.log(user);
+          // console.log(user);
         })
         .catch(err => console.log(err))
     }

@@ -25,7 +25,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
             email:user?.email,
             status :task.status
           };
-          fetch(`http://localhost:5000/allTask/${task?._id}` , {
+          fetch(`https://task-manager-server-mukutdev.vercel.app/allTask/${task?._id}` , {
            method : 'PUT',
            headers :{
                'content-type' : 'application/json',  
@@ -34,7 +34,7 @@ const EditModal = ({open , onClose , task , refetch}) => {
        })
        .then(res => res.json())
        .then(data =>{
-           console.log(data);
+          //  console.log(data);
            toast.success(`${task.taskName} is now updated successfully`)
            refetch()
            onClose()

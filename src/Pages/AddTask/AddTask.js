@@ -48,12 +48,12 @@ const AddTask = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            console.log(data);
+            // console.log(data);
             toast.success(`${task.taskName} is now added successfully`)
             navigate('/mytask')
         })
 
-           console.log(task);
+          //  console.log(task);
         }
       });
 
